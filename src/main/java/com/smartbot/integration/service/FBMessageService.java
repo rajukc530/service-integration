@@ -5,6 +5,7 @@ import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import com.github.messenger4j.MessengerPlatform;
 import com.github.messenger4j.exceptions.MessengerApiException;
@@ -13,6 +14,7 @@ import com.github.messenger4j.receive.handlers.TextMessageEventHandler;
 import com.github.messenger4j.send.NotificationType;
 import com.github.messenger4j.send.Recipient;
 
+@Service
 public class FBMessageService {
 	private static final Logger logger = LoggerFactory.getLogger(FBMessageService.class);
 	
