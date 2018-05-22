@@ -1,0 +1,13 @@
+messenger4j:
+  appSecret: 7395b6ee4d8fbbc68e1b17e731aaedb3
+  verifyToken: fb_token_for_jbot
+  pageAccessToken: EAAVCJ261axgBAJeZAlCSrSLPJQ2SVAzmN2QrfRZAZC1NqwyvIm8U40jFc7ZB4XtZBFJFN334ZCfFZBuIe1oixYBz9yq9DZAnb
+logging:
+  level:
+    com:
+      github:
+        messenger4j: INFO
+
+server:
+  contextPath: /
+  port: 8092
