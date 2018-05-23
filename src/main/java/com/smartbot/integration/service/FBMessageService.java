@@ -11,6 +11,7 @@ import com.github.messenger4j.receive.handlers.TextMessageEventHandler;
 import com.github.messenger4j.send.NotificationType;
 import com.github.messenger4j.send.Recipient;
 import com.smartbot.integration.model.Request;
+import com.smartbot.integration.model.Response;
 import com.smartbot.integration.util.MessageType;
 import com.smartbot.integration.util.Platform;
 
@@ -34,21 +35,25 @@ public class FBMessageService {
       request.setReceiptId(event.getRecipient().getId());
       request.setMessageType(MessageType.TEXT_MESSAGE);
       request.setPlatform(Platform.FB);
-      // Validate Request
-      // CALL NLP
+      // 1.  Validate Request
+      // 2.  Find Page Token based on receiptID
+      // 3.  CALL NLP
+      final Response response = new Response(); 
+      response.setTextMessage("Hello! Welcome to the Smart Bot. We will reply soon. Thanks!!!");
       logger.info("Request:" + request.toString());
-      sendTextMessage(request, "Hello I am a Chat BOT. Thanks for inquiry..");
+      logger.info("Response:"+ response.toString());
+      sendTextMessage(request, response);
 
     };
   }
 
-  private void sendTextMessage(final Request request, String text) {
+  private void sendTextMessage(final Request request, final Response response) {
     final Recipient recipient = Recipient.newBuilder().recipientId(request.getSenderId()).build();
     final NotificationType notificationType = NotificationType.REGULAR;
     final String metadata = "DEVELOPER_DEFINED_METADATA";
     try {
       MessengerPlatform.newSendClientBuilder(pageAccessToken).build().sendTextMessage(recipient,
-          notificationType, text, metadata);
+          notificationType, response.getTextMessage(), metadata);
     } catch (MessengerApiException e) {
       e.printStackTrace();
     } catch (MessengerIOException e) {
