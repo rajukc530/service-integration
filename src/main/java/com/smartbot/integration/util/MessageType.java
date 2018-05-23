@@ -1,5 +1,16 @@
 package com.smartbot.integration.util;
-public interface MessageType {
-    String TEXT_MESSAGE = "text";
-    String PARAMETER_MESSAGE = "parameter";
+
+public enum MessageType {
+  TEXT("text"), PARAMETER("parameter");
+
+  private String type;
+
+  MessageType(String type) {
+    this.type = type;
+  }
+
+  public String type() {
+    return type;
+  }
+
 }

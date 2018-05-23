@@ -1,8 +1,15 @@
 package com.smartbot.integration.util;
 
-public interface Platform {
-  String FB = "Facebook Messenger";
-  String SLACK = "Slack";
-  String SKYPE = "Skype";
-  String VIBER = "Viber";
+public enum Platform {
+  FB("Facebook Messenger"), SLACK("Slack"), SKYPE("Skype"), VIBER("Viber");
+
+  private String channel;
+
+  Platform(String channel) {
+    this.channel = channel;
+  }
+
+  public String channel() {
+    return channel;
+  }
 }

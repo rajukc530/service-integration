@@ -34,8 +34,8 @@ public class FBMessageService {
       request.setSenderId(event.getSender().getId());
       request.setMessageTimestamp(event.getTimestamp());
       request.setReceiptId(event.getRecipient().getId());
-      request.setMessageType(MessageType.TEXT_MESSAGE);
-      request.setPlatform(Platform.FB);
+      request.setMessageType(MessageType.TEXT.type());
+      request.setPlatform(Platform.FB.channel());
       // 1.  Validate Request
       // 2.  Find Page Token based on receiptID
       // 3.  CALL NLP
