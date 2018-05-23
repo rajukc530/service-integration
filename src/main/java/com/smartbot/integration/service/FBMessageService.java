@@ -1,5 +1,6 @@
 package com.smartbot.integration.service;
 
+import java.util.HashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +13,7 @@ import com.github.messenger4j.send.NotificationType;
 import com.github.messenger4j.send.Recipient;
 import com.smartbot.integration.model.Request;
 import com.smartbot.integration.model.Response;
+import com.smartbot.integration.util.Constants;
 import com.smartbot.integration.util.MessageType;
 import com.smartbot.integration.util.Platform;
 
@@ -52,7 +54,8 @@ public class FBMessageService {
     final NotificationType notificationType = NotificationType.REGULAR;
     final String metadata = "DEVELOPER_DEFINED_METADATA";
     try {
-      MessengerPlatform.newSendClientBuilder(pageAccessToken).build().sendTextMessage(recipient,
+      final String fbPageAccessToken=Constants.fbPageMapper.get(request.getSenderId());
+      MessengerPlatform.newSendClientBuilder(fbPageAccessToken).build().sendTextMessage(recipient,
           notificationType, response.getTextMessage(), metadata);
     } catch (MessengerApiException e) {
       e.printStackTrace();
