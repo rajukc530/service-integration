@@ -1,73 +1,60 @@
 package com.smartbot.integration.service;
 
-import java.util.Date;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import com.github.messenger4j.MessengerPlatform;
 import com.github.messenger4j.exceptions.MessengerApiException;
 import com.github.messenger4j.exceptions.MessengerIOException;
 import com.github.messenger4j.receive.handlers.TextMessageEventHandler;
 import com.github.messenger4j.send.NotificationType;
 import com.github.messenger4j.send.Recipient;
+import com.smartbot.integration.model.Request;
+import com.smartbot.integration.util.MessageType;
+import com.smartbot.integration.util.Platform;
 
 @Service
 public class FBMessageService {
-	private static final Logger logger = LoggerFactory.getLogger(FBMessageService.class);
-	
-	@Value("${messenger4j.pageAccessToken}") 
-	private String pageAccessToken;
+  private static final Logger logger = LoggerFactory.getLogger(FBMessageService.class);
 
-	public TextMessageEventHandler newTextMessageEventHandler() {
+  @Value("${messenger4j.pageAccessToken}")
+  private String pageAccessToken;
 
-		return event -> {
-			logger.debug("Received TextMessageEvent: {}", event);
+  public TextMessageEventHandler newTextMessageEventHandler() {
 
-			final String messageId = event.getMid();
-			final String messageText = event.getText();
-			final String senderId = event.getSender().getId();
-			final Date timestamp = event.getTimestamp();
+    return event -> {
+      logger.debug("Received TextMessageEvent: {}", event);
 
-			//CALL NLP
-			logger.info("Received message '{}' with text '{}' from user '{}' at '{}'", messageId, messageText, senderId,
-					timestamp);
+      final Request request = new Request();
+      request.setMessageId(event.getMid());
+      request.setMessage(event.getText());
+      request.setSenderId(event.getSender().getId());
+      request.setMessageTimestamp(event.getTimestamp());
+      request.setReceiptId(event.getRecipient().getId());
+      request.setMessageType(MessageType.TEXT_MESSAGE);
+      request.setPlatform(Platform.FB);
+      // Validate Request
+      // CALL NLP
+      logger.info("Request:" + request.toString());
+      sendTextMessage(request, "Hello I am a Chat BOT. Thanks for inquiry..");
 
-			switch (messageText.toLowerCase()) {
+    };
+  }
 
-			case "hello":
-				sendTextMessage(senderId, "Hello, What I can do for you ? Type the word you're looking for");
-				break;
+  private void sendTextMessage(final Request request, String text) {
+    final Recipient recipient = Recipient.newBuilder().recipientId(request.getSenderId()).build();
+    final NotificationType notificationType = NotificationType.REGULAR;
+    final String metadata = "DEVELOPER_DEFINED_METADATA";
+    try {
+      MessengerPlatform.newSendClientBuilder(pageAccessToken).build().sendTextMessage(recipient,
+          notificationType, text, metadata);
+    } catch (MessengerApiException e) {
+      e.printStackTrace();
+    } catch (MessengerIOException e) {
+      e.printStackTrace();
+    }
 
-			case "user":
-				sendTextMessage(senderId, "Okay, Make appropriate selection Below.....");
-				break;
-
-			default:
-				sendTextMessage(senderId, "I do not know what are you talking about");
-			}
-
-		};
-	}
-
-	private void sendTextMessage(String recipientId, String text) {
-
-		final Recipient recipient = Recipient.newBuilder().recipientId(recipientId).build();
-		final NotificationType notificationType = NotificationType.REGULAR;
-		final String metadata = "DEVELOPER_DEFINED_METADATA";
-
-		try {
-			MessengerPlatform.newSendClientBuilder(pageAccessToken).build().sendTextMessage(recipient, notificationType, text, metadata);
-		} catch (MessengerApiException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MessengerIOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
+  }
 
 }

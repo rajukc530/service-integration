@@ -12,13 +12,4 @@ import com.github.messenger4j.send.MessengerSendClient;
 @Configuration
 public class ServiceIntegrationConfig {
 	
-private static final Logger logger = LoggerFactory.getLogger(ServiceIntegrationConfig.class);
-	
-	/*@Bean
-	public MessengerSendClient messengerSendClient(@Value("${messenger4j.pageAccessToken}") String pageAccessToken) {
-		logger.debug("Initializing MessengerSendClient - pageAccessToken: {}", pageAccessToken);
-		return MessengerPlatform.newSendClientBuilder(pageAccessToken).build();
-	}
-*/
-
 }
