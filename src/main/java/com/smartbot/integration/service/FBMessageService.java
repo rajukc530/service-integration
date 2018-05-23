@@ -55,6 +55,8 @@ public class FBMessageService {
     final String metadata = "DEVELOPER_DEFINED_METADATA";
     try {
       final String fbPageAccessToken=Constants.fbPageMapper.get(request.getSenderId());
+      System.out.println("request:"+request.toString());
+      System.out.println("fbPageAccessToken:"+fbPageAccessToken);
       MessengerPlatform.newSendClientBuilder(fbPageAccessToken).build().sendTextMessage(recipient,
           notificationType, response.getTextMessage(), metadata);
     } catch (MessengerApiException e) {
