@@ -18,7 +18,7 @@ import com.github.messenger4j.receive.MessengerReceiveClient;
 import com.smartbot.integration.service.FBMessageService;
 
 @RestController
-@RequestMapping("/facebook")
+@RequestMapping("/facebookwebhook") 
 public class FBServiceIntegrationController {
 
 	private static final Logger logger = LoggerFactory.getLogger(FBServiceIntegrationController.class);
