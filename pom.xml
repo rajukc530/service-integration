@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.smartbot</groupId>
-	<artifactId>service-integration</artifactId>
+	<artifactId>integration-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>service-integration</name>
+	<name>integration-service</name>
 	<description>A Messanger bot that look into Spring do based on enrtered text</description>
 
 	<parent>
