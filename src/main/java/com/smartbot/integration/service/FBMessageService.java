@@ -43,7 +43,6 @@ public class FBMessageService {
       response.setTextMessage("Hello! Welcome to the Smart Bot. We will reply soon. Thanks!!!");
       logger.info("Request:" + request.toString());
       logger.info("Response:"+ response.toString());
-      System.out.println("request1:"+request.toString());
       sendTextMessage(request, response);
 
     };
@@ -54,9 +53,8 @@ public class FBMessageService {
     final NotificationType notificationType = NotificationType.REGULAR;
     final String metadata = "DEVELOPER_DEFINED_METADATA";
     try {
-      System.out.println("request:"+request.toString());
       final String fbPageAccessToken=Constants.fbPageMapper.get(request.getReceiptId());
-      System.out.println("fbPageAccessToken:"+fbPageAccessToken);
+      logger.info("fbPageAccessToken:"+fbPageAccessToken);
       MessengerPlatform.newSendClientBuilder(fbPageAccessToken).build().sendTextMessage(recipient,
           notificationType, response.getTextMessage(), metadata);
     } catch (MessengerApiException e) {

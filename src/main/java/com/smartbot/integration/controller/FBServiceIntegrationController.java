@@ -55,8 +55,7 @@ public class FBServiceIntegrationController {
 
 		logger.debug("Received Messenger Platform callback - payload: {} | signature: {}", payload, signature);
 		try {
-		  System.out.println("payload:"+payload.toString());
-			this.receiveClient.processCallbackPayload(payload, signature);
+		    this.receiveClient.processCallbackPayload(payload, signature);
 			logger.debug("Processed callback payload successfully");
 			return ResponseEntity.status(HttpStatus.OK).build();
 		} catch (MessengerVerificationException e) {
