@@ -5,7 +5,7 @@ import java.util.Date;
 public class Request {
     private String senderId;
     private String messageType;
-    private String message;
+    private String messageText;
     private String platform;
     private String receiptId;
     private String messageId;
@@ -31,12 +31,12 @@ public class Request {
       this.messageType = messageType;
     }
 
-    public String getMessage() {
-      return message;
+    public String getMessageText() {
+      return messageText;
     }
 
-    public void setMessage(String message) {
-      this.message = message;
+    public void setMessageText(String message) {
+      this.messageText = message;
     }
 
     public String getPlatform() {
@@ -74,7 +74,7 @@ public class Request {
     @Override
     public String toString() {
       return "Request [senderId=" + senderId + ", messageType=" + messageType + ", message="
-          + message + ", platform=" + platform + ", receiptId=" + receiptId + ", messageId="
+          + messageText + ", platform=" + platform + ", receiptId=" + receiptId + ", messageId="
           + messageId + ", messageTimestamp=" + messageTimestamp + "]";
     }
 

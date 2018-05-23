@@ -28,7 +28,7 @@ public class FBMessageService {
 
       final Request request = new Request();
       request.setMessageId(event.getMid());
-      request.setMessage(event.getText());
+      request.setMessageText(event.getText());
       request.setSenderId(event.getSender().getId());
       request.setMessageTimestamp(event.getTimestamp());
       request.setReceiptId(event.getRecipient().getId());
